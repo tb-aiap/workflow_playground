@@ -25,7 +25,7 @@ jobs:
       run: docker build . --file ${docker_path} --tag ${my_image}:$(date +%s)
 
     - name: Upload artifact
-        uses: actions/upload-artifact@v4
-        with:
-          name: ${my_image} 
-          path: ${{ runner.temp }}/myimage.tar
+      uses: actions/upload-artifact@v4
+      with:
+        name: ${my_image} 
+        path: ${{ runner.temp }}/myimage.tar
