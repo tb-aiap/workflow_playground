@@ -9,6 +9,7 @@ on:
 env:
   docker_path: File/docker/Dockerfile
   image_name: my_image
+  issue_thread: 1
 jobs:
   build:
     name: Build and Scan Image
@@ -41,3 +42,8 @@ jobs:
               echo "</details>"
             } >> $GITHUB_STEP_SUMMARY
           fi
+      - name: Add report to Trivy issue thread
+        run: gh issue comment ${issue_thread} --body "$(cat trivy.txt)"
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          ISSUE: ${{ github.event.issue.html_url }}
