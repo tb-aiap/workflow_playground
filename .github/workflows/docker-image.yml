@@ -22,10 +22,10 @@ jobs:
       run: echo $(pwd) 
 
     - name: Build the Docker image
-      run: docker build . --file ${docker_path} --tag ${my_image}:$(date +%s)
+      run: docker build . --file ${docker_path} --tag ${image_name}:$(date +%s)
 
     - name: Upload artifact
       uses: actions/upload-artifact@v4
       with:
-        name: ${my_image} 
+        name: ${image_name} 
         path: ${{ runner.temp }}/myimage.tar
