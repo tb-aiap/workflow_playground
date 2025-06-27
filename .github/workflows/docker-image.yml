@@ -28,11 +28,17 @@ jobs:
         with:
           image-ref: 'image:${{ github.sha }}'
           format: 'table'
-          # exit-code: '1'
+          exit-code: '1'
           ignore-unfixed: true
           vuln-type: 'os,library'
           severity: 'CRITICAL,HIGH'
           output: trivy.txt
+      - name: Upload Vulnerability Scan Results
+        uses: actions/upload-artifact@v4
+        with:
+          name: trivy
+          path: trivy.txt
+          retention-days: 30
       - name: Publish Trivy Output to Summary
         run: |
           if [[ -s trivy.txt ]]; then
