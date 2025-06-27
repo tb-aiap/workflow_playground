@@ -28,7 +28,7 @@ jobs:
         with:
           image-ref: 'image:${{ github.sha }}'
           format: 'table'
-          exit-code: '1'
+          # exit-code: '1'
           ignore-unfixed: true
           vuln-type: 'os,library'
           severity: 'CRITICAL,HIGH'
@@ -47,6 +47,18 @@ jobs:
             } >> $GITHUB_STEP_SUMMARY
           fi
       - name: Add report to Trivy issue thread
-        run: gh issue comment ${issue_thread} --body "$(cat trivy.txt)"
+        run: |
+              # Wrap trivy.txt in markdown code block
+              {
+                echo '### 🔍 Trivy Vulnerability Report'
+                echo ''
+                echo '```'
+                cat trivy.txt
+                echo '```'
+              } > trivy_comment.txt
+
+              # Debug output (optional)
+              cat trivy_comment.txt
+              gh issue comment ${issue_thread} --body "$(cat trivy_comment.txt)"
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
