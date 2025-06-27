@@ -10,6 +10,10 @@ env:
   docker_path: File/docker/Dockerfile
   image_name: my_image
   issue_thread: 1
+
+permissions:
+  issues: write # provide github cli action to update issues.
+
 jobs:
   build:
     name: Build and Scan Image
@@ -46,4 +50,3 @@ jobs:
         run: gh issue comment ${issue_thread} --body "$(cat trivy.txt)"
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          ISSUE: ${{ github.event.issue.html_url }}
