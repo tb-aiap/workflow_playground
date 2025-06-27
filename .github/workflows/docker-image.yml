@@ -58,7 +58,10 @@ jobs:
               } > trivy_comment.txt
 
               # Debug output (optional)
-              cat trivy_comment.txt
-              gh issue comment ${issue_thread} --body "$(cat trivy_comment.txt)"
+              cat trivy_comment.txt 
+              gh issue comment ${issue_thread} -F trivy.txt 
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+
+              # gh issue comment ${issue_thread} --body "$(cat trivy_comment.txt)"
