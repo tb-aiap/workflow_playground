@@ -14,14 +14,12 @@ jobs:
     name: Build and Scan Image
     runs-on: ubuntu-latest
     steps:
-      - name: Check current file
-        run: echo $(pwd)
       - name: Checkout code
         uses: actions/checkout@v4
       - name: Build an image from Dockerfile
-        run: docker build -t image:${{ github.sha }} . --file ${docker_path}
+        run: docker build -t image:${{ github.sha }} ${docker_path}
       - name: Run Trivy vulnerability scanner
-        uses: aquasecurity/trivy-action@0.28.0
+        uses: aquasecurity/trivy-action@0.31.0
         with:
           image-ref: 'image:${{ github.sha }}'
           format: 'table'
@@ -29,3 +27,17 @@ jobs:
           ignore-unfixed: true
           vuln-type: 'os,library'
           severity: 'CRITICAL,HIGH'
+          output: trivy.txt
+      - name: Publish Trivy Output to Summary
+        run: |
+          if [[ -s trivy.txt ]]; then
+            {
+              echo "### Security Output"
+              echo "<details><summary>Click to expand</summary>"
+              echo ""
+              echo '```terraform'
+              cat trivy.txt
+              echo '```'
+              echo "</details>"
+            } >> $GITHUB_STEP_SUMMARY
+          fi
