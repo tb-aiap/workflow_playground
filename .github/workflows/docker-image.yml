@@ -57,7 +57,7 @@ jobs:
                 echo '```'
               } > trivy_comment.txt
 
-              # Debug output (optional)
+              cat trivy.txt
               cat trivy_comment.txt 
               gh issue comment ${issue_thread} -F trivy.txt 
         env:
