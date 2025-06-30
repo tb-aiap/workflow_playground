@@ -27,17 +27,17 @@ jobs:
         uses: aquasecurity/trivy-action@0.31.0
         with:
           image-ref: 'image:${{ github.sha }}'
-          format: 'json'
+          format: 'table'
           # exit-code: '1'
           ignore-unfixed: true
           vuln-type: 'os,library'
           severity: 'CRITICAL,HIGH'
-          output: trivy.json
+          output: trivy.txt
       - name: Upload Vulnerability Scan Results
         uses: actions/upload-artifact@v4
         with:
           name: trivy
-          path: trivy.json
+          path: trivy.txt
           retention-days: 30
       - name: Publish Trivy Output to Summary
         run: |
@@ -47,25 +47,25 @@ jobs:
               echo "<details><summary>Click to expand</summary>"
               echo ""
               echo '```terraform'
-              cat trivy.json
+              cat trivy.txt
               echo '```'
               echo "</details>"
             } >> $GITHUB_STEP_SUMMARY
           fi
       - name: Add report to Trivy issue thread
         run: |
-              # Wrap trivy.json in markdown code block
+              # Wrap trivy.txt in markdown code block
               {
                 echo '### 🔍 Trivy Vulnerability Report'
                 echo ''
                 echo '```'
-                cat trivy.json
+                cat trivy.txt
                 echo '```'
-              } > trivy_comment.json
+              } > trivy_comment.txt
 
-              cat trivy.json
-              cat trivy_comment.json 
-              gh issue comment ${issue_thread} -F trivy.json 
+              cat trivy.txt
+              cat trivy_comment.txt 
+              gh issue comment ${issue_thread} -F trivy.txt 
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
