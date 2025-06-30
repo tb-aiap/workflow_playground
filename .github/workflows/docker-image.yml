@@ -67,7 +67,7 @@ jobs:
 
               cat trivy.txt
               cat trivy_comment.txt 
-              gh issue comment ${issue_thread} -F trivy.txt 
+              gh issue comment ${issue_thread} -F trivy_comment.txt 
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
