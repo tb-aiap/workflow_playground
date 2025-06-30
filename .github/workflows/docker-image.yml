@@ -56,11 +56,13 @@ jobs:
         run: |
               # Wrap trivy.txt in markdown code block
               {
-                echo '### 🔍 Trivy Vulnerability Report'
+                echo '### 🔍 Trivy Vulnerability Report $(date)'
+                echo "<details><summary>Click to expand</summary>"
                 echo ''
                 echo '```'
                 cat trivy.txt
                 echo '```'
+                echo "</details>"
               } > trivy_comment.txt
 
               cat trivy.txt
