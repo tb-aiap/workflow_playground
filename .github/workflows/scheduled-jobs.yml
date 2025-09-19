@@ -3,8 +3,8 @@ name: Scheduled Cron Job
 
 on:
   workflow_dispatch:
-  # push:
-  #   branches: [ "main" ]
+  push:
+    branches: [ "main" ]
   # pull_request:
   #   branches: [ "main" ]
 # env:
@@ -26,7 +26,7 @@ jobs:
     #   env_secrets: ${{ secrets.DB_USER }}
     steps:
       - name: Testing environment secrets
-        run: echo ${{ env.DB_USER }}
+        run: echo ${{ secrets.DB_USER }}
       - name: Testing repo secrets
         run: echo ${{ secrets.REPO_DB }}
       # - name: Checkout code
