@@ -1,0 +1,54 @@
+
+name: Scheduled Cron Job 
+
+on:
+  workflow_dispatch:
+  # push:
+  #   branches: [ "main" ]
+  # pull_request:
+  #   branches: [ "main" ]
+# env:
+  # docker_path: File/docker/Dockerfile
+  # image_name: my_image
+  # issue_thread: 1
+
+# permissions:
+  # contents: read # to allow working with content of repository
+  # issues: write # provide github cli action to update issues.
+
+jobs:
+  build:
+    name: Ping Supabase 
+    runs-on: ubuntu-latest
+    steps:
+      - name: Testing secrets
+        env:
+          DB: ${{ secrets.DB }}
+        run: echo $DB
+      # - name: Checkout code
+      #   uses: actions/checkout@v4
+      # - name: Build an image from Dockerfile
+      #   run: docker buildx build --no-cache -t image:${{ github.sha }} . --file ${docker_path}
+      # - name: Run Trivy vulnerability scanner
+      #   uses: aquasecurity/trivy-action@0.31.0
+      #   with:
+      #     image-ref: 'image:${{ github.sha }}'
+      #     format: 'table'
+      #     # exit-code: '1'
+      #     ignore-unfixed: true
+      #     vuln-type: 'os,library'
+      #     severity: 'CRITICAL,HIGH'
+      #     output: trivy.txt
+      # - name: Publish Trivy Output to Summary
+      #   run: |
+      #     if [[ -s trivy.txt ]]; then
+      #       {
+      #         echo "### Security Output"
+      #         echo "<details><summary>Click to expand</summary>"
+      #         echo ""
+      #         echo '```terraform'
+      #         cat trivy.txt
+      #         echo '```'
+      #         echo "</details>"
+      #       } >> $GITHUB_STEP_SUMMARY
+      #     fi
