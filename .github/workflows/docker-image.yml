@@ -12,6 +12,7 @@ env:
   issue_thread: 1
 
 permissions:
+  contents: read # to allow working with content of repository
   issues: write # provide github cli action to update issues.
 
 jobs:
