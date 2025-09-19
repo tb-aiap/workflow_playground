@@ -22,7 +22,7 @@ jobs:
     runs-on: ubuntu-latest
     environment: DB
     env:
-      repo_secrets: ${{ secrets.REPO_DB }}
+      repo_secrets: ${{ secrets.RPO_DB }}
     steps:
       # - name: Testing secrets
       #   run: echo $env.DB_USER
