@@ -20,15 +20,21 @@ jobs:
   build:
     name: Ping Supabase 
     runs-on: ubuntu-latest
-    environment: DB
+    environment: SUPABASE_ONBOARDING
     # env:
     #   repo_secrets: ${{ secrets.REPO_DB }}
     #   env_secrets: ${{ secrets.DB_USER }}
     steps:
-      - name: Testing environment secrets
-        run: echo ${{ secrets.DB_USER }}
-      - name: Testing repo secrets
-        run: echo ${{ secrets.REPO_DB }}
+      - name: Install PostgreSQL client
+        run: sudo apt-get update && sudo apt-get install -y postgresql-client
+
+      # - name: Testing environment secrets
+      #   run: echo ${{ secrets.DB_USER }}
+      # - name: Testing repo secrets
+      #   run: echo ${{ secrets.REPO_DB }}
+      # steps:
+      - name: Test Supabase DB connection
+        run: psql ${{ secrets.ADULT_DATA}} -c "SELECT * from adult_income LIMIT 5;"
       # - name: Checkout code
       #   uses: actions/checkout@v4
       # - name: Build an image from Dockerfile
