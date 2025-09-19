@@ -23,6 +23,7 @@ jobs:
     environment: DB
     env:
       repo_secrets: {{ $secrets.REPO_DB}}
+      env_secrets: {{ $secrets.DB_USER}}
     steps:
       - name: Testing secrets
         run: echo {{ $env.DB_USER }}
