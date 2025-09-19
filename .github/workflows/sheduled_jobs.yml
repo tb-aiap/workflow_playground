@@ -20,11 +20,14 @@ jobs:
   build:
     name: Ping Supabase 
     runs-on: ubuntu-latest
+    environment: DB
+    env:
+      repo_secrets: {{ $secrets.REPO_DB}}
     steps:
       - name: Testing secrets
-        env:
-          DB: ${{ secrets.DB }}
-        run: echo $DB
+        run: echo {{ $env.DB_USER }}
+      - name: Testing repo secrets
+        run: echo {{ $env.repo_secrets }}
       # - name: Checkout code
       #   uses: actions/checkout@v4
       # - name: Build an image from Dockerfile
