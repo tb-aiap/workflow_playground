@@ -63,6 +63,7 @@ jobs:
 
       - name: Ruff format check 
         run: |
+          set +e
           uv run ruff format src --check
           if [ $? -ne 0]; then
             echo "::error::Ruff formatting check failed. Some files changed."
