@@ -62,7 +62,12 @@ jobs:
         run: uv sync --locked --all-extras --dev
 
       - name: Ruff format check 
-        run: uv run ruff format src --check
+        run: |
+          uv run ruff format src --check
+          if [ $? -ne 0]; then
+            echo "::error::Ruff formatting check failed. Some files changed."
+            exit 1
+          fi
 
       - name: Ruff linting check
         run: uv run ruff check src --output-format=github
