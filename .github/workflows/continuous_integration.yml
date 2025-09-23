@@ -1,0 +1,85 @@
+name: Continous Integration 
+
+on:
+  workflow_dispatch:
+  # push:
+  #   branches: [ "**" ]
+  # pull_request:
+  #   branches: [ "**" ]
+
+jobs:
+  job1:
+    name: Job 1
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Sleep and Run
+      run: |
+        echo "Sleeping for 10"
+        sleep 10
+
+  job2:
+    name: Job 2
+    needs: job1
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Dependant is Running
+      run: |
+        echo "Completed job 2, but triggering failure"
+        exit 1
+
+  job3:
+    name: Job 3
+    needs: job2
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Will never run
+      run: |
+        echo "If you can read this, the experiment failed"k
+  # check-linting:
+  #   name: Check Code Format 
+  #   runs-on: ubuntu-latest
+
+  #   steps:
+  #     - uses: actions/checkout@v5
+
+  #     - name: Install uv
+  #       uses: astral-sh/setup-uv@v6
+  #       with:
+  #         version: "0..82.0"
+
+  #     - name: Set up Python
+  #       run: uv python install
+
+  #     - name: Install the project
+  #       run: uv sync --all-extras --dev
+
+  #     - name: Ruff linting check
+  #       run: uv run ruff check src
+
+  #     - name: Test code
+  #       run: uv run pytest -vs
+
+  # unit-test:
+  #   name: Run unit test and coverage report
+  #   runs-on: ubuntu-latest
+
+  #   steps:
+  #     - uses: actions/checkout@v4
+
+  #     - name: Install uv
+  #       uses: astral-sh/setup-uv@v5
+
+  #     - name: Set up Python
+  #       run: uv python install
+
+  #     - name: Install the project
+  #       run: uv sync --all-extras --dev
+
+  #     - name: Ruff linting check
+  #       run: uv run ruff check src
+
+  #     - name: Test code
+  #       run: uv run pytest -vs
