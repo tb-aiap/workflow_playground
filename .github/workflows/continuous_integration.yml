@@ -65,8 +65,10 @@ jobs:
         run: |
           set +e
           uv run ruff format src --check
+          code=$?
+          echo "Exit code $code"
           set -e
-          if [ $? -ne 0 ]; then
+          if [ $code -ne 0 ]; then
             echo "::error::Ruff formatting check failed. Some files changed."
             exit 1
           fi
