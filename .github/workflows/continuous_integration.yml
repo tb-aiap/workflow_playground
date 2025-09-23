@@ -65,6 +65,7 @@ jobs:
         run: |
           set +e
           uv run ruff format src --check
+          echo $?
           if [ $? -ne 0]; then
             echo "::error::Ruff formatting check failed. Some files changed."
             exit 1
