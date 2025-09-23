@@ -63,6 +63,9 @@ jobs:
 
       - name: Ruff linting check
         run: uv run ruff check src
+      
+      - name: Ruff format check 
+        run: uv run ruff format src
 
   unit-test: 
     name: Unit test 
