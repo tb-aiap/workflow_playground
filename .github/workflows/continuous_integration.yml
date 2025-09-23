@@ -62,7 +62,7 @@ jobs:
         run: uv sync --locked --all-extras --dev
 
       - name: Ruff linting check
-        run: uv run ruff check src
+        run: uv run ruff check src --output-format=github
       
       - name: Ruff format check 
         run: uv run ruff format src
