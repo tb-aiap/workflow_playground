@@ -97,19 +97,11 @@ jobs:
       - name: Install the project
         run: uv sync --locked --all-extras --dev
 
-      # - name: Run Unit test 
-      #   run: |
-      #     uv run coverage run -m pytest 
-      
-      - name: Check Min Coverage 
+      - name: Run Unit tests
         run: |
           uv add coverage
-          uv run coverage report -m --fail-under=80 
-
-      - name: Show coverage report on error
-        if: failure()
+          uv run coverage run -m pytest 
+      
+      - name: Check Minimum Coverage above 80%
         run: |
-          coverage report || true
-      # - name: Check Min Coverage 
-      #   run: |
-      #     uv run coverage report -m --fail-under=80 
+          uv run coverage report -m --fail-under=80 
