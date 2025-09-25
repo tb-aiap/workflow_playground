@@ -105,7 +105,7 @@ jobs:
       - name: Check Min Coverage 
         run: |
           uv run coverage report -m --fail-under=80 
-        continue-on-error: false
+
       - name: Show coverage report on error
         if: failure()
         run: |
