@@ -99,9 +99,9 @@ jobs:
 
       - name: Run Unit test 
         run: |
-          uv run pytest 
+          uv add pytest-cov
+          uv run coverage run -m pytest 
       
       - name: Check Min Coverage 
         run: |
-          uv add pytest-cov
           uv run coverage report --fail-under=80 
