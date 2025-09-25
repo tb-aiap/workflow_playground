@@ -97,7 +97,11 @@ jobs:
       - name: Install the project
         run: uv sync --locked --all-extras --dev
 
-      - name: Run coverage report 
+      - name: Run Unit test 
+        run: |
+          uv run pytest 
+      
+      - name: Check Min Coverage 
         run: |
           uv add pytest-cov
-          uv run pytest --doctest-modules --junitxml=junit/test-results.xml --cov=com --cov-report=xml --cov-report=html
+          uv run coverage report --fail-under=80 
