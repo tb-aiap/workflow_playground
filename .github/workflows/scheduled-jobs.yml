@@ -4,7 +4,8 @@ name: Scheduled Cron Job
 on:
   workflow_dispatch:
   schedule:
-    - cron: "0 2 * * *"   # runs every day at 02:00 UTC 
+    - cron: "0 2 * * *"   # runs every day at 02:00 UTC
+    - cron: "0 14 * * *"   # runs every day at 02:00 UTC 
   # push:
   #   branches: [ "main" ]
   # pull_request:
