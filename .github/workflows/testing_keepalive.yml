@@ -1,0 +1,27 @@
+name: Scheduled Cron Job 
+
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: "0 2 * * *"   # runs every day at 02:00 UTC
+    - cron: "0 14 * * *"  # runs every day at 14:00 UTC
+
+jobs:
+  build:
+    name: Ping Supabase and Keep Workflow Alive
+    runs-on: ubuntu-latest
+    environment: SUPABASE_ONBOARDING
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+
+      # --- Keepalive step ---
+      - name: Keep Workflow Alive
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          # Get the workflow file name (this workflow)
+          workflow_file=$(basename "${GITHUB_WORKFLOW_REF%%@*}")
+          # Enable this workflow via GitHub API
+          gh api -X PUT "repos/${GITHUB_REPOSITORY}/actions/workflows/${workflow_file}/enable"
+        shell: bash
